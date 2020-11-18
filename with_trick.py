@@ -29,8 +29,12 @@ class ManagedFile:
 
     def __enter__(self):
         """
+
         Позволяет задать действия для инициализации контекста.
         В данном случае возвращает открытый файл
+
+        Returns:
+            stream
         """
         self.file = open(self.name, 'w')
         return self.file
@@ -43,14 +47,11 @@ class ManagedFile:
             exc_type (): Тип зафиксированного исключения, либо None.
             exc_val (): Объект зафиксированного исключения, либо None.
             exc_tb (): Трассировка стека для зафиксированного исключения, либо None.
-
-        Returns:
-
         """
         if self.file:
             self.file.close()
 
 
-with ManagedFile('managed_file.txt') as f:
-    f.write('привет, мир!')
-    f.write('а теперь, пока!')
+with ManagedFile('managed_file.txt') as opened_file:
+    opened_file.write('привет, мир!')
+    opened_file.write('а теперь, пока!')
